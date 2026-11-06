@@ -1,0 +1,65 @@
+name: CI
+
+# Builds the CUDA kernels with nvcc (no GPU needed to compile) and runs the 80+ CPU-side unit tests
+# (v3bin parser, SHA-256 registries, integrity gates, telemetry, resources, PM-V3 CPU paths).
+# GPU-parity tests and tests that need the private reserve files are skipped explicitly — see `--skip` below.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  CUDA_VER: "12-8"
+  CUDA_HOME: /usr/local/cuda-12.8
+  CUDA_ARCH: sm_86
+
+jobs:
+  rust:
+    name: nvcc + cargo test (CPU-side), Ubuntu 24.04
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install CUDA toolkit (nvcc, cudart, driver stubs) from NVIDIA apt repo
+        run: |
+          wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb
+          sudo dpkg -i cuda-keyring_1.1-1_all.deb
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cuda-nvcc-${CUDA_VER} cuda-cudart-dev-${CUDA_VER} cuda-driver-dev-${CUDA_VER}
+          "${CUDA_HOME}/bin/nvcc" --version
+      - name: Install Tauri v2 + SQLite system dependencies
+        run: |
+          sudo apt-get install -y --no-install-recommends \
+            libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev \
+            libssl-dev libsqlite3-dev pkg-config patchelf
+      - name: Expose libcuda driver stub for link + load (no physical GPU on the runner)
+        run: |
+          mkdir -p "$RUNNER_TEMP/cuda-stubs"
+          cp "${CUDA_HOME}/lib64/stubs/libcuda.so" "$RUNNER_TEMP/cuda-stubs/libcuda.so"
+          ln -sf libcuda.so "$RUNNER_TEMP/cuda-stubs/libcuda.so.1"
+          echo "RUSTFLAGS=-L $RUNNER_TEMP/cuda-stubs" >> "$GITHUB_ENV"
+          echo "LD_LIBRARY_PATH=$RUNNER_TEMP/cuda-stubs:${CUDA_HOME}/lib64" >> "$GITHUB_ENV"
+      - name: cargo build --locked (compiles cuda/v3_kernels.cu via build.rs)
+        run: cargo build --locked
+      - name: cargo test --locked (CPU-side; GPU-parity & private-data tests skipped)
+        run: |
+          cargo test --locked -- \
+            --skip test_ckv6_general_causality_and_permutation_invariance \
+            --skip test_ckv6_pick10_80_20_high_degree_parity \
+            --skip test_ckv6_synthetic_gpu_cpu_parity_and_shield \
+            --skip test_cuda_sm120_and_dma_rss_guard \
+            --skip test_blind_reserves_0400_non_invasive_lstat

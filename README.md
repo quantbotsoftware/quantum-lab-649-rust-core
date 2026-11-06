@@ -1,11 +1,20 @@
 # Quantum Lab 649 · Rust Core v3 — Native Tauri v2 + CUDA + AVX2 Combinatorial Observatory
 
+[![CI](https://github.com/quantbotsoftware/quantum-lab-649-rust-core/actions/workflows/ci.yml/badge.svg)](https://github.com/quantbotsoftware/quantum-lab-649-rust-core/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23992530.svg)](https://doi.org/10.5281/zenodo.23992530) [![Hub](https://img.shields.io/badge/hub-bot--tradingsoftware.com-0a7)](https://bot-tradingsoftware.com/)
+
 ![License: MIT](https://img.shields.io/badge/license-MIT-10b981) ![Stack: Rust%20%2B%20Tauri%20v2%20%2B%20CUDA](https://img.shields.io/badge/stack-Rust%20%7C%20Tauri%20v2%20%7C%20CUDA-3b82f6) ![Claims: None](https://img.shields.io/badge/positive__claims__allowed-false-ef4444) [![Donations: Good Samaritans](https://img.shields.io/badge/donations-good%20samaritans-ec4899)](https://ko-fi.com/quantbotsoftware)
 
 Native 12-tab Dark-Mode desktop combinatorial observatory built in **Rust (2021 edition) + Tauri v2 + CUDA C++17 (`v3_kernels.cu`) + AVX2/POPCNT**, featuring zero-copy `mmap` over a **39.07M-ticket binary universe (`1.3 GB` Vault)**, Johnson association scheme / Krawtchouk / Koopman spectral decompositions (`KJ-V5`), covering designs (`CD-V3`), block-bootstrap engines (`PM-V3`), Philox-4x32-10 bit-identical CPU/GPU parity (`CK-V6`), and bounded-memory procfs telemetry.
 
 > ⚠️ **STRICTLY AS-IS · CLASSICAL HPC ONLY · DOES NOT PREDICT LOTTERY NUMBERS (`positive_claims_allowed = false`):**
 > All computations are 100% classical combinatorial/statistical research algorithms. Official lottery draws are independent random events where every ticket has identical probability. **This software does NOT predict winning numbers and guarantees ZERO winnings.** Provided with **no warranty, no liability, and no technical support**. See [DISCLAIMER.md](DISCLAIMER.md).
+
+## 🧱 For data engineers: the `.v3bin` format & the 1.3 GB Vault as a dataset
+
+If you do not care about lotteries at all, this repository is still useful as a **reproducible data-engineering artefact**: 13 flat, little-endian, `mmap`-able tables with a 64-byte header (magic `QLV3VLT\x01`), 39,077,004 exhaustively enumerated k-subset bitmasks in lexicographic (= combinatorial-number-system) order, 1,000-replicate bootstrap statistics per ticket, SHA-256 pinned in `VAULT_MANIFEST.json`, bit-exact GPU ⇄ CPU parity harness (Gate A0), and a DOI on CERN Zenodo. Every table opens from Python in one line with `numpy.memmap` — no application needed.
+
+- 📐 **Format spec, Python/Rust readers, measured Gate A0 numbers:** [V3BIN_FORMAT_SPEC.md](V3BIN_FORMAT_SPEC.md) · 🇷🇴 [V3BIN_FORMAT_SPEC_RO.md](V3BIN_FORMAT_SPEC_RO.md)
+- ✅ **CI:** the CUDA kernels are compiled with `nvcc` on every push and 80+ CPU-side unit tests run on GitHub Actions (`.github/workflows/ci.yml`); GPU-parity tests are listed explicitly as skipped there and run locally.
 
 ## 📘 User Manual (EN / RO)
 
@@ -55,3 +64,10 @@ Build prerequisites and `CUDA_ARCH` table, the 1.3 GB Vault (download or rebuild
 ## ❤️ Voluntary Donations ("Good Samaritans")
 Released 100% free & open-source (MIT). If the Rust + Tauri v2 + CUDA FFI + `mmap` architecture helps your own projects:
 - 🌐 **Open-Source Hub & Donations:** [https://bot-tradingsoftware.com/#donate](https://bot-tradingsoftware.com/#donate)
+
+
+## ✅ Continuous Integration
+
+Every push to `main` installs the NVIDIA CUDA 12.8 toolkit on a GPU-less runner, **compiles `cuda/v3_kernels.cu` with `nvcc`, links against the driver stub and runs the 81 CPU-side unit tests** (v3bin parser, SHA-256 registries, integrity gates, telemetry, resources, PM-V3 CPU paths). The 4 GPU-parity tests and 1 test needing private reserve files are skipped by name in the workflow and run locally on real hardware (see `V3BIN_FORMAT_SPEC.md` §5 for measured results).
+
+Workflow: [`.github/workflows/ci.yml`](.github/workflows/ci.yml) · runs: [https://github.com/quantbotsoftware/quantum-lab-649-rust-core/actions](https://github.com/quantbotsoftware/quantum-lab-649-rust-core/actions). No secrets, no broker or network calls, no telemetry — fork it and the same checks run for you.
