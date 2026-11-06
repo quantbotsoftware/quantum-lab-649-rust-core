@@ -1,0 +1,127 @@
+{
+  "version": 3,
+  "vault_dir": "./vault",
+  "total_universe_tickets": 39077004,
+  "positive_claims_allowed": false,
+  "cpu_threads_used": 24,
+  "generation_seconds": 17.656978329,
+  "files": [
+    {
+      "filename": "loto_649_masks.v3bin",
+      "table_kind": 1,
+      "n_pool": 49,
+      "k_pick": 6,
+      "record_count": 13983816,
+      "file_bytes": 111870592,
+      "sha256": "00fc9d74b07e0e0591da4696502bd4b04e0ecb5a4fd1915d77a3fca479efa6fe"
+    },
+    {
+      "filename": "loto_540_tickets.v3bin",
+      "table_kind": 1,
+      "n_pool": 40,
+      "k_pick": 5,
+      "record_count": 658008,
+      "file_bytes": 5264128,
+      "sha256": "44d850fa8d8d3ba4c3f30f8063bc904be1f6045cd6debfb2c78525b1f3b75d10"
+    },
+    {
+      "filename": "loto_540_draws6.v3bin",
+      "table_kind": 2,
+      "n_pool": 40,
+      "k_pick": 6,
+      "record_count": 3838380,
+      "file_bytes": 30707104,
+      "sha256": "3c78df8c54325abe67f7403e4d83dd110092e294755a2d21a62446b78cd0ff0c"
+    },
+    {
+      "filename": "joker_base45_masks.v3bin",
+      "table_kind": 1,
+      "n_pool": 45,
+      "k_pick": 5,
+      "record_count": 1221759,
+      "file_bytes": 9774136,
+      "sha256": "728dc6244d2576c4170ebfcb1697e9436c4687419fe4555f90753da8ea0c3f14"
+    },
+    {
+      "filename": "joker_full_24m.v3bin",
+      "table_kind": 3,
+      "n_pool": 45,
+      "k_pick": 5,
+      "record_count": 24435180,
+      "file_bytes": 195481504,
+      "sha256": "dc9f6f715d54b6bca20c865a25ca418a8a43501c2832eaf159d04760d4a818d8"
+    },
+    {
+      "filename": "cdv3_wheels_catalog.v3bin",
+      "table_kind": 5,
+      "n_pool": 49,
+      "k_pick": 6,
+      "record_count": 6926,
+      "file_bytes": 55472,
+      "sha256": "02464a6a30070bacf412cab1a0a95757c67416364ff8f7d7f728dd2b8b832434"
+    },
+    {
+      "filename": "pmv3_boot1000_649.v3bin",
+      "table_kind": 4,
+      "n_pool": 49,
+      "k_pick": 6,
+      "record_count": 13983816,
+      "file_bytes": 335611648,
+      "sha256": "ef2820f08928463cb1bca13457857287541bd1fd44e7739da67094d85a7ebb53"
+    },
+    {
+      "filename": "pmv3_boot1000_540.v3bin",
+      "table_kind": 4,
+      "n_pool": 40,
+      "k_pick": 5,
+      "record_count": 658008,
+      "file_bytes": 15792256,
+      "sha256": "6ddcf7ce05ef18a63511a25fbbb7764a85cf1e7f2bc3a04ffb14eea3e276e2d2"
+    },
+    {
+      "filename": "pmv3_boot1000_joker.v3bin",
+      "table_kind": 4,
+      "n_pool": 45,
+      "k_pick": 5,
+      "record_count": 24435180,
+      "file_bytes": 586444384,
+      "sha256": "54d4c2b4877f239d5bbf0fb558d4559f3cb4c117886fe5c64e7f0705d3e700f7"
+    },
+    {
+      "filename": "cdv3q_wheels_catalog.v3bin",
+      "table_kind": 6,
+      "n_pool": 49,
+      "k_pick": 6,
+      "record_count": 6926,
+      "file_bytes": 55472,
+      "sha256": "8e41e0d3c735585578121f6953c27c51cdce07e6787e00486147e963fffd376c"
+    },
+    {
+      "filename": "c3v2_pareto_portfolios.v3bin",
+      "table_kind": 7,
+      "n_pool": 49,
+      "k_pick": 6,
+      "record_count": 13945,
+      "file_bytes": 111624,
+      "sha256": "3a165bc6f20c6974f32b7926dcc67d6f83fd8d5d2f28eadbfcf0700474d2f3ae"
+    },
+    {
+      "filename": "c4v2_mc1m_summary.v3bin",
+      "table_kind": 8,
+      "n_pool": 49,
+      "k_pick": 6,
+      "record_count": 90,
+      "file_bytes": 11584,
+      "sha256": "e8718f290e7af957def0fbfea26280ccc02ec426c88827f3dbf1c1bb0537c927"
+    },
+    {
+      "filename": "ckv6_power_10k.v3bin",
+      "table_kind": 9,
+      "n_pool": 49,
+      "k_pick": 6,
+      "record_count": 10000,
+      "file_bytes": 640064,
+      "sha256": "6cbfdb0e75b1f50bead3c366037adf0abbb848f4189ae99391988277476c475c"
+    }
+  ]
+}
