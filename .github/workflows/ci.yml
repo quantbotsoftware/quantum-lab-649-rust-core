@@ -34,20 +34,37 @@ jobs:
       - uses: dtolnay/rust-toolchain@1.93.0   # same toolchain the release was built/tested with
       - uses: Swatinem/rust-cache@v2
       - name: Install Tauri v2 + SQLite system dependencies
-        timeout-minutes: 15
+        timeout-minutes: 20
+        # The Azure apt mirror occasionally stalls mid-download of libwebkit2gtk (27 MB) without ever
+        # timing out, so: canonical archive + short HTTP timeouts + a bounded retry loop.
         run: |
+          sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|http://archive.ubuntu.com/ubuntu|g' /etc/apt/sources.list
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends -o Acquire::Retries=3 \
-            libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev \
-            libssl-dev libsqlite3-dev pkg-config patchelf
+          for attempt in 1 2 3; do
+            if timeout 480 sudo apt-get install -y --no-install-recommends --fix-missing \
+                -o Acquire::Retries=5 -o Acquire::http::Timeout=30 -o Acquire::http::Pipeline-Depth=0 \
+                libgtk-3-dev libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev \
+                libssl-dev libsqlite3-dev pkg-config patchelf; then
+              break
+            fi
+            echo "::warning::apt-get install attempt $attempt failed/stalled — retrying"
+            sudo dpkg --configure -a || true
+            [ "$attempt" = 3 ] && exit 1
+          done
       - name: Install CUDA toolkit (nvcc, cudart, driver stubs) from NVIDIA apt repo
         timeout-minutes: 20
         run: |
           wget -q https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
           sudo dpkg -i cuda-keyring_1.1-1_all.deb
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends -o Acquire::Retries=3 \
-            cuda-nvcc-${CUDA_VER} cuda-cudart-dev-${CUDA_VER} cuda-driver-dev-${CUDA_VER}
+          for attempt in 1 2 3; do
+            timeout 600 sudo apt-get install -y --no-install-recommends \
+              -o Acquire::Retries=5 -o Acquire::http::Timeout=30 \
+              cuda-nvcc-${CUDA_VER} cuda-cudart-dev-${CUDA_VER} cuda-driver-dev-${CUDA_VER} && break
+            echo "::warning::CUDA apt install attempt $attempt failed/stalled — retrying"
+            sudo dpkg --configure -a || true
+            [ "$attempt" = 3 ] && exit 1
+          done
           "${CUDA_HOME}/bin/nvcc" --version
       - name: Expose libcuda driver stub for link + load (no physical GPU on the runner)
         run: |
