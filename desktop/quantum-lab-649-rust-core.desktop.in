@@ -1,0 +1,18 @@
+[Desktop Entry]
+Type=Application
+Version=1.5
+Name=Quantum Lab 649 · Rust Core v3
+GenericName=Native Tauri v2 + CUDA Combinatorial Observatory
+Comment=Starts Quantum Lab 649 Rust Core v3 (classical HPC, positive_claims_allowed=false)
+Exec=@REPO_DIR@/launch_rust_core_v3.sh
+Path=@REPO_DIR@
+Icon=@REPO_DIR@/icons/icon.png
+Terminal=false
+Categories=Science;Math;
+Keywords=combinatorics;649;rust;tauri;cuda;
+StartupNotify=false
+Actions=Stop;
+
+[Desktop Action Stop]
+Name=Close Quantum Lab 649 · Rust Core v3
+Exec=@REPO_DIR@/launch_rust_core_v3.sh --stop

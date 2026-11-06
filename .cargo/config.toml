@@ -1,0 +1,4 @@
+# Protocol Rust Core v3 (S1–S5) — Full-Hardware AVX2 + FMA + BMI1 + BMI2 + POPCNT pe Intel Core i7-14650HX (24 fire).
+# IEEE-754 păstrat exact (fără fast-math imprecis).
+[build]
+rustflags = ["-C", "target-cpu=native"]
