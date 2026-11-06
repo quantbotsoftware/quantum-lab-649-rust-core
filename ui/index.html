@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quantum Lab 649 · Rust Core v3</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <div>
+        <h1>Quantum Lab 649 · Rust Core v3</h1>
+        <p class="sub" id="info">nucleu nativ Rust v3 + Tauri v2 · RTX 5060 CUDA sm_120 + 24T AVX2 + Vault Zero-Copy mmap (39.07M bilete)</p>
+      </div>
+    </div>
+    <div class="header-badges">
+      <div class="claims" title="Hardware activ">GPU: <b id="hdr-gpu">RTX 5060 sm_120</b> · VRAM: <b id="hdr-vram">…</b></div>
+      <div class="claims" title="Porți științifice S1–S5">Porți v3: <b id="hdr-gates">A0–A7</b> · 0400: <b id="hdr-blind">INTACT</b></div>
+      <div class="claims" title="Axioma proiectului">positive_claims_allowed = <b id="pca">false</b></div>
+    </div>
+  </header>
+
+  <p class="banner" id="nota">Observator nativ HPC (CUDA 12.9 sm_120 + 24 fire CPU AVX2 + Vault zero-copy mmap 1.205 GiB pe SSD): roți de acoperire CD-V3Q, parimutuel NB2 PM-V3 (1 000× bootstrap), frontiere Pareto C3-v2, simulare 1 000 000 traiectorii C4-v2, regimuri cauzale CK-V6 și cele 3 registre prospective live (XI-F · TU4 · Quantum Limit). Nu este predicție comercială, garanție de câștig peste preț sau sfat de joc: sub urna uniformă reală toate biletele au aceeași șansă de extragere.</p>
+
+  <nav id="main-tabs">
+    <button class="tab tab-v3 active" data-tab="v3-vault" type="button">🚀 Vault 39.07M · CD-V3Q · C3/C4</button>
+    <button class="tab tab-v3" data-tab="v3-ckv6" type="button">🛡️ CK-V6 &amp; 3 Registre Live</button>
+    <button class="tab tab-v3" data-tab="v3-hw" type="button">🖥️ Hardware Live RTX 5060</button>
+    <button class="tab tab-new" data-tab="kjv5" type="button">⚡ KJ-V5 · Rust Nativ</button>
+    <button class="tab tab-new" data-tab="hsv4" type="button">⚛ HS-V4 · RO Live &amp; ERA5</button>
+    <button class="tab tab-new" data-tab="intl" type="button">🌍 Internațional &amp; RNG</button>
+    <button class="tab" data-tab="dens" type="button">Densități π · ρ</button>
+    <button class="tab" data-tab="frft" type="button">FrFT</button>
+    <button class="tab" data-tab="adm" type="button">Filtru admisibilitate</button>
+    <button class="tab" data-tab="par" type="button">Paritate &amp; Porți v3</button>
+    <button class="tab" data-tab="inv" type="button">Inventar LIVE</button>
+    <button class="tab" data-tab="mem" type="button">Memorie &amp; Proces</button>
+  </nav>
+
+  <main>
+    <!-- ====================================================================== -->
+    <!-- FILA 1 (NOU v3): VAULT 39.07M · CD-V3Q · PM-V3 · C3-v2 · C4-v2 · GPU   -->
+    <!-- ====================================================================== -->
+    <section id="tab-v3-vault" class="panel active">
+      <div class="kpi-strip">
+        <div class="kpi-box">
+          <div class="kpi-label">Univers Rezident VRAM + mmap</div>
+          <div class="kpi-val" id="kpi-univ">39,077,004 bilete</div>
+          <div class="kpi-sub" id="kpi-univ-sub">6/49: 13.98M · 5/40: 658k (+3.84M extr.) · Joker: 24.44M</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">Vault SSD Zero-Copy (.v3bin)</div>
+          <div class="kpi-val" id="kpi-vault">13 / 13 tabele (0444)</div>
+          <div class="kpi-sub" id="kpi-vault-sub">1.205 GiB · deschidere mmap … ms</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">Roți CD-V3Q (0 Patterned)</div>
+          <div class="kpi-val" id="kpi-wheels">163 · 20/169/4411 · 102</div>
+          <div class="kpi-sub" id="kpi-wheels-sub">5 integrale (0 neacoperite) + 36 parțiale + 18 abreviate</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-label">C3-v2 Pareto &amp; C4-v2 1M Traiectorii</div>
+          <div class="kpi-val" id="kpi-c3c4">G4: 36/36 · 0 Bonferroni</div>
+          <div class="kpi-sub" id="kpi-c3c4-sub">30 strategii × 1,000,000 traiectorii (1 / 5 / 10 ani)</div>
+        </div>
+      </div>
+
+      <!-- 1A. Inspector < 1 ms Zero-Copy mmap pe 39 077 004 bilete + 1 000x Bootstrap PM-V3 -->
+      <div class="grid2">
+        <div class="card card-highlight">
+          <h2>⚡ Inspector Instantaneu Zero-Copy <code>mmap</code> (&lt; 1 ms) — Univers Complet 39 077 004 Bilete &amp; Cuburi Bootstrap 1 000× <code>PM-V3</code></h2>
+          <div class="controls">
+            <label>Joc
+              <select id="v3t-joc">
+                <option value="649">Loto 6/49 (13 983 816 variante)</option>
+                <option value="540">Loto 5/40 (658 008 bilete)</option>
+                <option value="joker">Joker 5/45 + 1/20 (24 435 180 variante)</option>
+              </select>
+            </label>
+            <label>Numere <input id="v3t-bile" class="wide-input" type="text" value="3 14 22 31 41 49"></label>
+            <label>Joker <input id="v3t-joker" class="short-input" type="number" min="1" max="20" value="11"></label>
+            <button class="btn btn-accent" id="v3t-query-nums" type="button">Interoghează Bilet</button>
+            <label>Rang lex <input id="v3t-rang" class="short-input" type="number" min="0" value="0"></label>
+            <button class="btn" id="v3t-query-rank" type="button">Interoghează Rang</button>
+            <button class="btn-mini" id="v3t-add-gpu" type="button">+ Adaugă în Eval GPU</button>
+            <button class="btn-mini" id="v3t-send-cu" type="button">🔍 Câte &amp; Unde</button>
+            <span class="status" id="v3t-status"></span>
+          </div>
+          <div class="grid2-eq">
+            <div>
+              <table class="kv" id="v3t-kv"></table>
+            </div>
+            <div>
+              <h3>Distribuția EV Partajat NB2 pe 1 000× Bootstrap (<code>[q05, q25, q50, q75, q95]</code>)</h3>
+              <canvas id="c-v3-boot" width="460" height="150"></canvas>
+              <p class="legend" id="v3t-boot-leg">cuantile citite zero-copy din <code>pmv3_boot1000_*.v3bin</code> (fără încărcare în RAM)</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Calibrare Parimutuelă <code>PM-V3</code> (NB2 + Cenzurare la 0 + 1 000× Bootstrap)</h2>
+          <table class="grid" id="v3-pm-wf"></table>
+          <h3>Cuburi Complete Univers (Paritate GPU ↔ 24T CPU &amp; Anti-Crowding)</h3>
+          <table class="grid" id="v3-pm-cubes"></table>
+        </div>
+      </div>
+
+      <!-- 1B. Explorator Roti CD-V3Q / CD-V3 -->
+      <div class="grid2">
+        <div class="card">
+          <h2>🎡 Catalogul Roților de Acoperire <code>CD-V3Q</code> (Reetichetare QAP Anti-Crowding, 0 Bilete Tipizate) &amp; <code>CD-V3</code></h2>
+          <div class="controls">
+            <label>Catalog
+              <select id="v3w-qap">
+                <option value="true" selected>CD-V3Q (Reetichetat QAP Anti-Crowding · S2)</option>
+                <option value="false">CD-V3 (Designuri Canonice Inițiale · S1)</option>
+              </select>
+            </label>
+            <label>Roată (59 totale)
+              <select id="v3w-id"></select>
+            </label>
+            <button class="btn" id="v3w-load-gpu" type="button">⚡ Evaluează Roata Live pe RTX 5060</button>
+            <button class="btn-mini" id="v3w-modal" type="button">📋 Fereastră Detalii Roată</button>
+            <span class="status" id="v3w-status"></span>
+          </div>
+          <div class="grid2-eq">
+            <div>
+              <table class="kv" id="v3w-kv"></table>
+            </div>
+            <div>
+              <h3>Primele Bilete din <code>cdv3q_wheels_catalog.v3bin</code> (cu EV &amp; Cuantile)</h3>
+              <div class="scroll-box">
+                <table class="grid" id="v3w-tickets"></table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Cele 5 Designuri Integrale Principale (0 Stări Neacoperite din 42.25M)</h2>
+          <table class="grid" id="v3w-main5"></table>
+          <p class="legend">Verificare dublă bit-exactă pe GPU <code>RTX 5060 sm_120</code> și pe <code>24</code> fire CPU <code>AVX2 + POPCNT</code>: <code>0</code> extrageri neacoperite pe toate cele 5 designuri integrale și <code>0</code> bilete tipizate după QAP.</p>
+        </div>
+      </div>
+
+      <!-- 1C. Frontiere Pareto C3-v2, Simulare 1M Traiectorii C4-v2 & Evaluator Live GPU RTX 5060 -->
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>📈 Frontiere Pareto Exacte <code>C3-v2</code> (0 Eroare Bonferroni) &amp; Traiectorii 1 000 000× <code>C4-v2</code></h2>
+          <div class="controls">
+            <label>Joc
+              <select id="v3p-joc">
+                <option value="649">Loto 6/49</option>
+                <option value="540">Loto 5/40</option>
+                <option value="joker">Joker</option>
+                <option value="mix">Mix 3 Jocuri</option>
+              </select>
+            </label>
+            <label>Buget [lei]
+              <select id="v3p-buget">
+                <option value="40" selected>40 lei</option>
+                <option value="80">80 lei</option>
+                <option value="160">160 lei</option>
+                <option value="320">320 lei</option>
+                <option value="640">640 lei</option>
+                <option value="1304">1 304 lei</option>
+              </select>
+            </label>
+            <button class="btn-mini" id="v3p-send-gpu" type="button">⚡ Trimite μ=0.5 în Eval GPU</button>
+            <span class="status" id="v3p-status"></span>
+          </div>
+          <canvas id="c-v3-pareto" width="580" height="175"></canvas>
+          <p class="legend">Frontiera exactă <code>(P(câștig ≥ 1), EV_portofoliu)</code> peste regimurile <code>μ ∈ {0, 0.25, 0.5, 1, 2, ∞}</code> · linie galbenă punctată: <code>P_random</code> analitic hipergeometric.</p>
+          <div class="scroll-box">
+            <table class="grid" id="v3p-table"></table>
+          </div>
+          <h3>Orizonturi 1 / 5 / 10 Ani pe 1 000 000 Traiectorii CUDA Philox (<code>C4-v2</code>)</h3>
+          <div class="scroll-box">
+            <table class="grid" id="v3c4-table"></table>
+          </div>
+        </div>
+
+        <div class="card card-highlight">
+          <h2>🔥 Evaluator Interactiv LIVE pe <code>RTX 5060</code> (VRAM) + Paritate <code>24T AVX2</code></h2>
+          <div class="controls">
+            <label>Joc evaluat
+              <select id="v3e-joc">
+                <option value="649">Loto 6/49 (13.98M stări VRAM)</option>
+                <option value="540">Loto 5/40 (3.84M extrageri 6/40 VRAM)</option>
+                <option value="joker">Joker (24.44M stări VRAM + CPU)</option>
+              </select>
+            </label>
+            <button class="btn btn-accent" id="v3e-run" type="button">🚀 Evaluează Live GPU + 24T CPU</button>
+            <span class="status" id="v3e-status"></span>
+          </div>
+          <label for="v3e-input">Portofoliu personalizat (1 bilet pe linie; pentru Joker adaugă <code>+J</code> sau al 6-lea număr <code>1..20</code>):</label>
+          <textarea id="v3e-input" spellcheck="false">2 11 19 28 37 46
+5 14 23 33 42 49
+8 17 25 34 43 48</textarea>
+          <div class="grid2-eq">
+            <div>
+              <h3>Rezultat Exact Univers Complet (GPU == 24T CPU)</h3>
+              <table class="kv" id="v3e-kv"></table>
+            </div>
+            <div>
+              <h3>EV Partajat NB2 pe Categorii &amp; Bilete</h3>
+              <table class="grid" id="v3e-cats"></table>
+            </div>
+          </div>
+          <div class="scroll-box">
+            <table class="grid" id="v3e-tickets"></table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- FILA 2 (NOU v3): CK-V6 (10K GPU) & CELE 3 REGISTRE PROSPECTIVE LIVE    -->
+    <!-- ====================================================================== -->
+    <section id="tab-v3-ckv6" class="panel">
+      <!-- 2A. Panoul Unificat al celor 3 Registre Prospective Live (Poarta A6) -->
+      <div class="card card-highlight">
+        <div class="controls">
+          <h2>📜 Poarta A6 — Cele 3 Registre Prospective Live (Certificare Linie-cu-Linie SHA-256) &amp; Protecția Rezervelor Oarbe <code>0400</code></h2>
+          <button class="btn btn-accent" id="v3r-refresh" type="button">🔄 Reverifică Live Lanțurile SHA-256</button>
+          <span class="badge pass" id="v3r-badge">…</span>
+          <span class="status" id="v3r-status"></span>
+        </div>
+
+        <div class="grid3-eq">
+          <div class="card">
+            <h3>1. Registrul <code>XI-F</code> (Strategii Portofoliu pe Hârtie)</h3>
+            <table class="kv" id="v3r-xif-kv"></table>
+            <div class="scroll-box">
+              <table class="grid" id="v3r-xif-sample"></table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>2. Registrul <code>TU4</code> (Tribunal E-Proces &amp; Garda <code>S35_03</code>)</h3>
+            <table class="kv" id="v3r-tu4-kv"></table>
+            <div class="scroll-box">
+              <table class="grid" id="v3r-tu4-streams"></table>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>3. Registrul <code>Quantum Limit</code> Prospectiv &amp; <code>OGLINDA</code></h3>
+            <table class="kv" id="v3r-ql-kv"></table>
+            <table class="grid" id="v3r-ql-games"></table>
+          </div>
+        </div>
+
+        <div class="grid2-eq">
+          <div>
+            <h3>🔒 Inspecție Neinvazivă <code>lstat</code> pe Rezervele Oarbe <code>0400</code> (0 Octeți Citiți!)</h3>
+            <table class="grid" id="v3r-blind"></table>
+          </div>
+          <div>
+            <h3>🛡️ Garda <code>S35_03</code> la Trecerea de Lună &amp; Aviz Epistemic Permanent</h3>
+            <table class="kv" id="v3r-s35-kv"></table>
+            <p class="legend" id="v3r-epistemic"></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2B. Explorator CK-V6 (Q1-Q6, 13 Fluxuri Reale, Suprafata 10k .v3bin & Simulator GPU Live) -->
+      <div class="grid2" style="margin-top: 10px;">
+        <div class="card">
+          <h2>🧬 Motorul Cauzal de Regimuri Fizice <code>CK-V6</code> (BOCPD Adams–MacKay + Koopman V₁⊕V₂ + Scut w₀ = 0.50)</h2>
+          <div class="controls">
+            <label>Flux analizat (13 fluxuri · 45 206 pași)
+              <select id="v3ck-stream"></select>
+            </label>
+            <label>Celulă <code>ckv6_power_10k.v3bin</code>
+              <select id="v3ck-cell"></select>
+            </label>
+            <span class="badge" id="v3ck-verdict">…</span>
+            <span class="status" id="v3ck-status"></span>
+          </div>
+          <canvas id="c-v3-ckstream" width="600" height="190"></canvas>
+          <p class="legend" id="v3ck-stream-leg">cyan: <code>M_t</code> martingal cauzal cu scut <code>w₀ = 0.50</code> (<code>M_t ≥ 0.50</code> garantat) · galben punctat: pragul <code>0.50</code>.</p>
+          <div class="scroll-box">
+            <table class="grid" id="v3ck-streams-tbl"></table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Calificare Pre-Arhivă <code>Q1–Q6</code> (0 Arhive Citite) &amp; Familia <code>XI-P2 Dev</code> (Holm 1 500)</h2>
+          <table class="grid" id="v3ck-q-tbl"></table>
+          <h3>Tabelul Holm–Bonferroni pe Familia <code>XI-P2 Dev</code> (Prag 1 500 · 0 Supraviețuitori)</h3>
+          <table class="grid" id="v3ck-holm-tbl"></table>
+        </div>
+      </div>
+
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>🗺️ Suprafața de Putere 5×5 din <code>ckv6_power_10k.v3bin</code> (10 000 Istorii Sintetice pe GPU)</h2>
+          <canvas id="c-v3-ckpow" width="560" height="195"></canvas>
+          <p class="legend" id="v3ck-pow-leg">matrice 5×5 (<code>δ ∈ {0, 0.15, 0.25, 0.35, 0.50}</code> × <code>L_regime ∈ {40, 80, 120, 200, 400}</code>, 400 istorii/celulă): puterea <code>P(M_T ≥ 1500)</code>.</p>
+          <div class="scroll-box">
+            <table class="grid" id="v3ck-mmap-tbl"></table>
+          </div>
+        </div>
+
+        <div class="card card-highlight">
+          <h2>⚡ Simulator Interactiv LIVE <code>CK-V6</code> pe <code>RTX 5060</code> (Kernel CUDA <code>f64</code> + Martor CPU)</h2>
+          <div class="controls">
+            <label>Deplasare regim δ
+              <select id="v3cks-delta">
+                <option value="0">0 bp (H₀ uniform pur)</option>
+                <option value="1500">1 500 bp (δ = 0.15)</option>
+                <option value="2500" selected>2 500 bp (δ = 0.25)</option>
+                <option value="3500">3 500 bp (δ = 0.35)</option>
+                <option value="5000">5 000 bp (δ = 0.50)</option>
+              </select>
+            </label>
+            <label>Schimbare L_regim
+              <select id="v3cks-lreg">
+                <option value="40">pasul 40</option>
+                <option value="80" selected>pasul 80</option>
+                <option value="120">pasul 120</option>
+                <option value="200">pasul 200</option>
+              </select>
+            </label>
+            <label>Replici GPU
+              <select id="v3cks-reps">
+                <option value="8">8 traiectorii</option>
+                <option value="16" selected>16 traiectorii</option>
+                <option value="32">32 traiectorii</option>
+              </select>
+            </label>
+            <button class="btn btn-accent" id="v3cks-run" type="button">▶ Simulează pe RTX 5060</button>
+            <span class="status" id="v3cks-status"></span>
+          </div>
+          <canvas id="c-v3-cksim" width="560" height="175"></canvas>
+          <p class="legend">cyan: <code>ln M_t</code> pe traiectoria martor #0 · violet: lungimea MAP a regimului <code>r_t / 40</code> · verificare live <code>|GPU − CPU| &lt; 1e-12</code>.</p>
+          <table class="kv" id="v3cks-kv"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- FILA 3 (NOU v3): TELEMETRIE HARDWARE LIVE RTX 5060 · 24T CPU · SSD     -->
+    <!-- ====================================================================== -->
+    <section id="tab-v3-hw" class="panel">
+      <div class="controls">
+        <button class="btn btn-accent" id="v3hw-refresh" type="button">🔄 Măsoară Acum Hardware Live</button>
+        <label><input id="v3hw-auto" type="checkbox" checked> Reîmprospătare automată (2 s pe fila activă)</label>
+        <span class="badge pass" id="v3hw-guard">VmRSS Guard &lt; 11.5 GiB: OK</span>
+        <span class="status" id="v3hw-status"></span>
+      </div>
+
+      <div class="grid2-eq">
+        <div class="card card-highlight">
+          <h2>🟢 GPU Primar: <code>NVIDIA GeForce RTX 5060 Laptop GPU</code> (Blackwell <code>sm_120</code> · GDDR7)</h2>
+          <div class="meter-wrap"><div class="meter-bar" id="hw-vram-bar" style="width: 12%;"></div></div>
+          <table class="kv" id="hw-gpu-kv"></table>
+        </div>
+
+        <div class="card card-highlight">
+          <h2>🔵 Procesor: <code>Intel Core i7-14650HX</code> (<code>24</code> Fire Logice · <code>AVX2 + FMA + POPCNT</code>)</h2>
+          <div class="meter-wrap"><div class="meter-bar ok-bar" id="hw-cpu-bar" style="width: 8%;"></div></div>
+          <table class="kv" id="hw-cpu-kv"></table>
+        </div>
+      </div>
+
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>🟣 Memorie RAM <code>16 GB DDR5</code>, Garda Activă <code>VmRSS &lt; 11.5 GiB</code> &amp; Procese WebKitGTK</h2>
+          <div class="meter-wrap"><div class="meter-bar ok-bar" id="hw-ram-bar" style="width: 10%;"></div></div>
+          <table class="kv" id="hw-ram-kv"></table>
+        </div>
+
+        <div class="card">
+          <h2>🟠 SSD Extern <code>./ssd_data</code> (<code>statvfs</code> ~1.8 TB Liberi) &amp; <code>RUST_CORE_V3_VAULT</code></h2>
+          <div class="meter-wrap"><div class="meter-bar warn-bar" id="hw-ssd-bar" style="width: 6%;"></div></div>
+          <table class="kv" id="hw-ssd-kv"></table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>📦 Cele 13 Tabele Binare <code>.v3bin</code> Mapate Zero-Copy Read-Only (<code>0444</code> · Magic <code>QLV3VLT</code> v3 · 1 293 402 964 B)</h2>
+        <table class="grid" id="hw-vault-tbl"></table>
+      </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- FILA 4 (v2 PORTAT): KJ-V5 RUST NATIV                                   -->
+    <!-- ====================================================================== -->
+    <section id="tab-kjv5" class="panel">
+      <div class="controls">
+        <label>Joc RO
+          <select id="kj-joc">
+            <option value="649">Loto 6/49</option>
+            <option value="540">Loto 5/40</option>
+            <option value="joker">Joker (5/45 + 1/20)</option>
+          </select>
+        </label>
+        <label>Configurație ablație
+          <select id="kj-cfg">
+            <option value="Full_KJV5">Full KJ-V5 (K1 + K2 + K3)</option>
+            <option value="K1_K2">K1 + K2 (Johnson + Koopman V₂)</option>
+            <option value="K1">K1 pur (Învelișuri Krawtchouk)</option>
+            <option value="K2">K2 pur (Koopman V₂ → V₂)</option>
+          </select>
+        </label>
+        <span class="badge" id="kj-sync">…</span>
+        <span class="status" id="kj-status"></span>
+      </div>
+
+      <div class="grid2">
+        <div class="card card-highlight">
+          <h2>Multiplet Ortogonal Post-Arhivă (α, β, γ) &amp; Nucleu Determinist — KJ-V5 (24 fire CPU)</h2>
+          <table class="grid" id="kj-multiplet"></table>
+          <div class="core-bar">
+            <div><span class="dim">Nucleu determinist (≥ 2/3 variante):</span> <span id="kj-core" class="balls-wrap"></span></div>
+            <div class="mono" id="kj-meta-post"></div>
+          </div>
+          <p class="legend" id="kj-epistemic"></p>
+        </div>
+
+        <div class="card">
+          <h2>Porți Calificare Pre-Arhivă Q1–Q6 &amp; Walk-Forward G1–G6</h2>
+          <table class="kv" id="kj-summary-kv"></table>
+          <h3>Porți Walk-Forward (G1–G6)</h3>
+          <table class="grid" id="kj-gates"></table>
+        </div>
+      </div>
+
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>Traiectoria Martingală E<sub>s</sub> (garanție exactă E<sub>s</sub> ≥ 0.50)</h2>
+          <canvas id="c-kjv5-e" width="600" height="205"></canvas>
+          <p class="legend">cyan: E<sub>s</sub> · linie galbenă punctată: pragul garantat w<sub>0</sub> = 0.50 · linie verde: E = 1.00</p>
+        </div>
+        <div class="card">
+          <h2>Dinamica Maselor Bayesiene (w<sub>0</sub>, w<sub>K1</sub>, w<sub>K2</sub>, w<sub>K3</sub>)</h2>
+          <canvas id="c-kjv5-w" width="600" height="205"></canvas>
+          <p class="legend">albastru: w<sub>0</sub> (abținere) · verde: w<sub>K1</sub> (Krawtchouk) · violet: w<sub>K2</sub> (Koopman V₂) · portocaliu: w<sub>K3</sub> (Schnakenberg V₁)</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h2>π<sub>i</sub> — Probabilitățile Marginale Post-Arhivă KJ-V5 vs k/N</h2>
+          <canvas id="c-kjv5-pi" width="620" height="200"></canvas>
+          <p class="legend" id="kj-spec-legend"></p>
+        </div>
+        <div class="card">
+          <h2>Calificare Algebrică Pre-Arhivă Q1–Q6 (0 fișiere istorice citite)</h2>
+          <table class="grid" id="kj-q-table"></table>
+        </div>
+      </div>
+
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>Studiu de Ablație RO (K1 · K2 · K1+K2 · Full_KJV5)</h2>
+          <table class="grid" id="kj-ablation"></table>
+          <h3>Ferestre Cauzale (Total · Jumătatea 1 · Jumătatea 2 · Ultimii 100 pași)</h3>
+          <table class="grid" id="kj-windows"></table>
+        </div>
+        <div class="card">
+          <h2>Categorii Câștigătoare Walk-Forward vs Așteptarea Hipergeometrică U</h2>
+          <table class="grid" id="kj-cats"></table>
+          <h3>Sinteză 10 Loterii Internaționale Mecanice &amp; RNG Electronice (KJ-V5)</h3>
+          <div class="scroll-box">
+            <table class="grid" id="kj-intl-mini"></table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- FILA 5 (v2 PORTAT): HS-V4 RO LIVE, ERA5 & INSPECTOR CATE & UNDE        -->
+    <!-- ====================================================================== -->
+    <section id="tab-hsv4" class="panel">
+      <div class="controls">
+        <label>Joc RO
+          <select id="hs-joc">
+            <option value="649">Loto 6/49</option>
+            <option value="540">Loto 5/40</option>
+            <option value="joker">Joker (5/45 + 1/20)</option>
+          </select>
+        </label>
+        <label>Configurație ablație
+          <select id="hs-cfg">
+            <option value="Full_HSV4">Full HS-V4 (O1 + O2 + O4)</option>
+            <option value="O1_O2">O1 + O2 (Bosonic + ERA5 Aero)</option>
+            <option value="O1_O4">O1 + O4 (Bosonic + Tensor Jennrich)</option>
+            <option value="O1">O1 pur (Bosonic Intrinsec)</option>
+          </select>
+        </label>
+        <span class="badge" id="hs-sync">…</span>
+        <span class="status" id="hs-status"></span>
+      </div>
+
+      <div class="grid2">
+        <div class="card card-highlight">
+          <h2>Multiplet Coulomb–Jastrow (α, β, γ) &amp; Nucleu Determinist — HS-V4 Sigilat SHA-256</h2>
+          <table class="grid" id="hs-multiplet"></table>
+          <div class="core-bar">
+            <div><span class="dim">Nucleu determinist HS-V4:</span> <span id="hs-core" class="balls-wrap"></span></div>
+            <div class="mono" id="hs-meta-post"></div>
+          </div>
+          <p class="legend" id="hs-epistemic"></p>
+        </div>
+
+        <div class="card">
+          <h2>Telemetrie Fizică ERA5 București 18:00 &amp; Scoruri Welford Cauzale</h2>
+          <table class="kv" id="hs-meteo-kv"></table>
+          <canvas id="c-hsv4-rho" width="460" height="125"></canvas>
+          <p class="legend">ultimele 120 zile ERA5: densitatea aerului ρ<sub>aer</sub> [kg/m³] la ora 18:00 București</p>
+        </div>
+      </div>
+
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>Traiectoria .npz Decodificată Nativ în Rust: E<sub>s</sub> &amp; Garanția E<sub>s</sub> ≥ 0.50</h2>
+          <canvas id="c-hsv4-e" width="600" height="195"></canvas>
+          <p class="legend">cyan: E<sub>s</sub> din fișierul sigilat <code>.npz</code> · galben: w<sub>0</sub> = 0.50</p>
+        </div>
+        <div class="card">
+          <h2>Masele Portofoliului Bayesian HS-V4 (w<sub>0</sub>, w<sub>O1</sub>, w<sub>O2</sub>, w<sub>O4</sub>)</h2>
+          <canvas id="c-hsv4-w" width="600" height="195"></canvas>
+          <p class="legend">albastru: w<sub>0</sub> · verde: w<sub>O1</sub> (Bosonic) · portocaliu: w<sub>O2</sub> (ERA5 Aero) · violet: w<sub>O4</sub> (Jennrich)</p>
+        </div>
+      </div>
+
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>π<sub>i</sub> &amp; Ablația HS-V4 (O1 · O1+O2 · O1+O4 · Full_HSV4)</h2>
+          <canvas id="c-hsv4-pi" width="580" height="175"></canvas>
+          <table class="grid" id="hs-ablation"></table>
+        </div>
+        <div class="card">
+          <h2>Porți G1–G6 &amp; Categorii Câștigătoare HS-V4</h2>
+          <table class="grid" id="hs-gates"></table>
+          <h3>Categorii Câștigătoare</h3>
+          <table class="grid" id="hs-cats"></table>
+        </div>
+      </div>
+
+      <div class="card card-highlight" id="cu-box">
+        <h2>🔍 Inspector Istoric 1-Click „Câte &amp; Unde” (RO LIVE + 10 Loterii Internaționale &amp; RNG)</h2>
+        <div class="controls">
+          <label>Arhivă primară
+            <select id="cu-joc">
+              <option value="649">RO · Loto 6/49</option>
+              <option value="540">RO · Loto 5/40</option>
+              <option value="joker">RO · Joker (5/45+1/20)</option>
+              <option value="fr_loto">INTL · FR Loto (5/49+1/10)</option>
+              <option value="hu_hatoslotto">INTL · HU Hatoslottó (6/45)</option>
+              <option value="hu_otoslotto">INTL · HU Ötöslottó (5/90)</option>
+              <option value="us_powerball">INTL · US Powerball (5/69+1/26)</option>
+              <option value="hu_skandinav_mech">INTL · HU Skandináv Kézi (7/35)</option>
+              <option value="fdj_eurodreams">RNG · FDJ EuroDreams (6/40+1/5)</option>
+              <option value="hu_skandinav_rng">RNG · HU Skandináv Gépi (7/35)</option>
+              <option value="ny_take5">RNG · US NY Take 5 (5/39)</option>
+              <option value="ny_cash4life">RNG · US NY Cash4Life (5/60+1/4)</option>
+              <option value="ny_pick10">RNG · US NY Pick 10 (10/80)</option>
+            </select>
+          </label>
+          <label>Bile <input id="cu-bile" class="wide-input" type="text" value="12 15 17 19 26 32"></label>
+          <label>Bonus <input id="cu-bonus" class="short-input" type="text" placeholder="opțional"></label>
+          <label>Min. potriviri
+            <select id="cu-min">
+              <option value="2">≥ 2 bile</option>
+              <option value="3" selected>≥ 3 bile</option>
+              <option value="4">≥ 4 bile</option>
+              <option value="5">≥ 5 bile</option>
+            </select>
+          </label>
+          <label><input id="cu-intl" type="checkbox" checked> Scanează simultan cele 13 arhive</label>
+          <button class="btn" id="cu-run" type="button">Verifică Câte &amp; Unde</button>
+          <button class="btn-mini" id="cu-fill-kj" type="button">Încarcă α KJ-V5</button>
+          <button class="btn-mini" id="cu-fill-hs" type="button">Încarcă α HS-V4</button>
+          <span class="status" id="cu-status"></span>
+        </div>
+
+        <div class="grid2-eq">
+          <div>
+            <h3 id="cu-hist-title">Histograma Exactă pe Arhiva Primară vs Urna Uniformă U</h3>
+            <table class="grid" id="cu-hist"></table>
+            <h3>Comparație Simultană pe Toate Arhivele Compatibile (max(bilă) ≤ N)</h3>
+            <div class="scroll-box">
+              <table class="grid" id="cu-cross"></table>
+            </div>
+          </div>
+          <div>
+            <h3 id="cu-matches-title">Unde s-au Nimerit în Istoric (ordonat descrescător după categorie și dată)</h3>
+            <div class="scroll-box">
+              <table class="grid" id="cu-matches"></table>
+            </div>
+            <h3>Potriviri Mari (≥ 4 bile) în Celelalte Arhive Internaționale</h3>
+            <div class="scroll-box">
+              <table class="grid" id="cu-intl-matches"></table>
+            </div>
+          </div>
+        </div>
+        <p class="legend" id="cu-nota"></p>
+      </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- FILA 6 (v2 PORTAT): INTERNATIONAL & RNG ELECTRONIC                     -->
+    <!-- ====================================================================== -->
+    <section id="tab-intl" class="panel">
+      <div class="controls">
+        <label>Flux internațional detaliat
+          <select id="in-flux">
+            <option value="fr_loto">Mecanic · FR Loto (5/49 + 1/10)</option>
+            <option value="hu_hatoslotto">Mecanic · HU Hatoslottó (6/45)</option>
+            <option value="hu_otoslotto">Mecanic · HU Ötöslottó (5/90)</option>
+            <option value="us_powerball">Mecanic · US Powerball (5/69 + 1/26)</option>
+            <option value="hu_skandinav_mech">Mecanic · HU Skandináv Kézi (7/35)</option>
+            <option value="fdj_eurodreams">RNG e-Draw · FDJ EuroDreams (6/40 + 1/5)</option>
+            <option value="hu_skandinav_rng">RNG Electronic · HU Skandináv Gépi (7/35)</option>
+            <option value="ny_take5">RNG Daily · US NY Take 5 (5/39)</option>
+            <option value="ny_cash4life">RNG Daily · US NY Cash4Life (5/60 + 1/4)</option>
+            <option value="ny_pick10">RNG Daily · US NY Pick 10 (10/80 din 20)</option>
+          </select>
+        </label>
+        <button class="btn-mini" id="in-send-cu" type="button">🔍 Verifică α KJ-V5 în Câte &amp; Unde</button>
+        <span class="status" id="in-status"></span>
+      </div>
+
+      <div class="card">
+        <h2>Sinteză Comparativă HS-V4 vs KJ-V5 pe Cele 10 Loterii Internaționale (5 Mecanice Externe + 5 RNG Electronice)</h2>
+        <div class="scroll-box">
+          <table class="grid" id="in-overview"></table>
+        </div>
+      </div>
+
+      <div class="grid2-eq" style="margin-top: 10px;">
+        <div class="card card-highlight">
+          <h2>Experiment Natural Pereche: HU Skandináv Lottó 7/35 (1.312 zile identice: Mecanic Kézi vs RNG Gépi)</h2>
+          <table class="grid" id="in-skandi"></table>
+          <p class="legend">Aceeași urnă 7/35 și exact aceleași 1.312 date calendaristice (2001–2026): comparație directă între extragerea manuală/mecanică și extragerea electronică.</p>
+        </div>
+        <div class="card">
+          <h2>Control Negativ O2 (Aerodinamică ERA5 București aplicată pe RNG Electronic Pur)</h2>
+          <table class="grid" id="in-o2-ctrl"></table>
+          <p class="legend">Verifică contracția masei bayesiene w<sub>O2</sub>: 0.50 → 0.000000 și menținerea garanției E<sub>s</sub> ≥ 0.50 pe fluxurile RNG electronice.</p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="card">
+          <h2 id="in-detail-title">Traiectorii Martingale Comparate E<sub>s</sub> (HS-V4 .npz vs KJ-V5 Rust)</h2>
+          <canvas id="c-intl-e" width="620" height="205"></canvas>
+          <p class="legend">cyan: KJ-V5 E<sub>s</sub> · violet: HS-V4 E<sub>s</sub> · galben punctat: pragul garantat 0.50</p>
+        </div>
+        <div class="card">
+          <h2>Detalii &amp; Multiplet Post-Arhivă pe Fluxul Selectat</h2>
+          <table class="kv" id="in-detail-kv"></table>
+          <h3>Multiplet Post-Arhivă KJ-V5</h3>
+          <table class="grid" id="in-detail-mult"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================== -->
+    <!-- FILELE 7..12: S18–S22 PORTATE INTEGRAL & ÎMBOGĂȚITE CU PORȚILE V3      -->
+    <!-- ====================================================================== -->
+    <section id="tab-dens" class="panel">
+      <div class="controls">
+        <label>Joc <select id="d-joc"><option value="649">649</option><option value="540">540</option><option value="joker">joker</option></select></label>
+        <label>Model <select id="d-model"><option value="H1">H1</option><option value="H3">H3</option></select></label>
+        <span class="status" id="d-status"></span>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <h2>π<sub>i</sub> — probabilitatea de includere sub legea modelului</h2>
+          <canvas id="c-pi" width="620" height="240"></canvas>
+          <p class="legend">bare: π<sub>i</sub> · linia: k/n (urna uniformă)</p>
+        </div>
+        <div class="card">
+          <h2>ρ = Π / k — operatorul densitate (urma 1, PSD)</h2>
+          <canvas id="c-rho" width="300" height="300"></canvas>
+          <p class="legend">abaterea ρ<sub>ij</sub> − ρ<sup>U</sup><sub>ij</sub> (roșu &gt; 0, albastru &lt; 0)</p>
+        </div>
+        <div class="card">
+          <h2>|Z<sub>m</sub>| — spectrul DFT unitar al lui z pe etichete</h2>
+          <canvas id="c-dft" width="620" height="200"></canvas>
+        </div>
+        <div class="card">
+          <h2>Mărimi</h2>
+          <table class="kv" id="d-kv"></table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-frft" class="panel">
+      <div class="controls">
+        <label>Joc <select id="f-joc"><option value="649">649</option><option value="540">540</option><option value="joker">joker</option></select></label>
+        <label>Ordin a <input id="f-a" type="range" min="0" max="2" step="0.01" value="0.5"></label>
+        <span id="f-aval">0.50</span>
+        <span class="status" id="f-status"></span>
+      </div>
+      <div class="card">
+        <h2>|F<sub>a</sub> z| — transformata Fourier fracționară (Candan–Kutay–Ozaktas)</h2>
+        <canvas id="c-frft" width="1180" height="260"></canvas>
+        <p class="legend">gri: z (a = 0) · culoare: |F<sub>a</sub> z|, nuanța = faza. Transformare unitară: energia
+          (deci X²) este invariantă; FrFT nu adaugă informație și nu selectează bilete (S16).</p>
+        <table class="kv" id="f-kv"></table>
+      </div>
+    </section>
+
+    <section id="tab-adm" class="panel">
+      <div class="controls">
+        <label>Țintă <select id="a-tinta"></select></label>
+        <span class="status" id="a-status"></span>
+      </div>
+      <div class="card">
+        <h2>Filtrul S17 nativ (măști u64, ordine exactă Shewchuk) pe emisiile sigilate și certificate SHA-256 prin LANT —
+          ținta <span id="a-tinta-titlu">…</span></h2>
+        <table class="grid" id="a-table"></table>
+        <p class="legend" id="a-nota"></p>
+        <p class="legend" id="a-regula"></p>
+        <p class="legend" id="a-eticheta"></p>
+      </div>
+    </section>
+
+    <section id="tab-par" class="panel">
+      <div class="card card-highlight" style="margin-bottom: 10px;">
+        <h2>🏆 Sinteza Porților de Acceptare <code>Rust Core v3</code> (Sesiunile <code>S1–S5</code> · Porțile <code>A0–A7</code> · Verificatoare Independente Python ↔ CUDA ↔ 24T CPU)</h2>
+        <table class="grid" id="p-v3-gates"></table>
+      </div>
+      <div class="grid2-eq">
+        <div class="card">
+          <h2>Paritatea S19 cu <code>ip_core.py</code> înghețat (toleranță |Δ| ≤ 1e-12)</h2>
+          <table class="kv" id="p-kv"></table>
+          <table class="grid" id="p-groups"></table>
+        </div>
+        <div class="card">
+          <h2>Verificarea Independentă Python ↔ Rust a Motorului <code>KJ-V5</code></h2>
+          <table class="kv" id="p-kjv5-kv"></table>
+          <table class="grid" id="p-kjv5-checks"></table>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-inv" class="panel">
+      <div class="card">
+        <h2>Inventarul arhivelor LIVE (tokio::fs + memmap2)</h2>
+        <table class="grid" id="i-table"></table>
+      </div>
+    </section>
+
+    <section id="tab-mem" class="panel">
+      <div class="controls">
+        <button class="btn" id="m-refresh" type="button">Remăsoară</button>
+        <span class="status" id="m-status"></span>
+      </div>
+      <div class="card">
+        <h2>Memoria ferestrei (procfs: VmRSS, VmHWM, Pss) — limita Webview 30 MB = 30 000 000 B</h2>
+        <table class="kv" id="m-kv"></table>
+        <table class="grid" id="m-table"></table>
+        <p class="legend" id="m-nota"></p>
+      </div>
+      <div class="card" style="margin-top: 10px;">
+        <h2>Telemetrie continuă (SSD) — memoria totală a arborelui de procese, RSS-vârf eșantionat</h2>
+        <table class="kv" id="t-kv"></table>
+        <p class="legend" id="t-nota"></p>
+      </div>
+      <div class="card" style="margin-top: 10px;">
+        <h2>Vârfuri telemetrie — afișare grafică (în direct, numai agregatul curent; seria rămâne pe SSD)</h2>
+        <canvas id="c-tel" width="1180" height="230"></canvas>
+        <p class="legend" id="t-graf-nota">bară plină: ultimul eșantion · marcaj vertical: vârful eșantionat al sesiunii ·
+          linie punctată: referința Webview 30 MB (numai raportată) · procesul principal: numai vârful</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- FEREASTRĂ MODALĂ DARK-MODE PENTRU DETALII ROATĂ / PORTOFOLIU (0 CASETE ALBE) -->
+  <div id="v3-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="v3-modal-title">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h2 id="v3-modal-title">Detalii Catalog</h2>
+        <button class="btn-mini" id="v3-modal-close" type="button">✕ Închide</button>
+      </div>
+      <div id="v3-modal-body">
+        <table class="kv" id="v3-modal-kv"></table>
+        <div class="scroll-box" style="margin-top: 8px;">
+          <table class="grid" id="v3-modal-grid"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Calcul clasic HPC pe GPU NVIDIA GeForce RTX 5060 (CUDA 12.9 sm_120) + CPU Intel Core i7-14650HX (24 fire AVX2) + Vault SSD zero-copy mmap · „quantum/Koopman/Jastrow/Witt” = vocabular strict matematic · incidentele moștenite și S4 (technical_incidents_s4 = 1) rămân explicite · positive_claims_allowed = false.</footer>
+  <script src="app.js"></script>
+</body>
+</html>
